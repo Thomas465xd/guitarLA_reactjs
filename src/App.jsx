@@ -1,197 +1,142 @@
+import { useState, useEffect } from "react"
+import Header from "./components/Header"
+import Guitar from "./components/Guitar"
+import { db } from "./data/db"
+
 function App() {
 
-  return (
-    <>
-      <Header />
-      <main class="container-xl mt-5">
-          <h2 class="text-center">Nuestra Colección</h2>
+    /*
+    const  [auth, setAuth] = useState(false)
 
-          <div class="row mt-5">
-              <div class="col-md-6 col-lg-4 my-4 row align-items-center">
-                  <div class="col-4">
-                      <img class="img-fluid" src="./public/img/guitarra_01.jpg" alt="imagen guitarra" />
-                  </div>
-                  <div class="col-8">
-                      <h3 class="text-black fs-4 fw-bold text-uppercase">Lukather</h3>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit quae labore odit magnam in autem nesciunt, amet deserunt</p>
-                      <p class="fw-black text-primary fs-3">$299</p>
-                      <button 
-                          type="button"
-                          class="btn btn-dark w-100"
-                      >Agregar al Carrito</button>
-                  </div>
-              </div>
+    useEffect(() => {
+        if(auth) {
+            console.log("Caragando...");
+        }
 
-              <div class="col-md-6 col-lg-4 my-4 row align-items-center">
-                  <div class="col-4">
-                      <img class="img-fluid" src="./public/img/guitarra_02.jpg" alt="imagen guitarra"/>
-                  </div>
-                  <div class="col-8">
-                      <h3 class="text-black fs-4 fw-bold text-uppercase">SRV</h3>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit quae labore odit magnam in autem nesciunt, amet deserunt</p>
-                      <p class="fw-black text-primary fs-3">$299</p>
-                      <button 
-                          type="button"
-                          class="btn btn-dark w-100 "
-                      >Agregar al Carrito</button>
-                  </div>
-              </div>
+        console.log("Escuchando por Auth");
+    }, [auth])
 
-              <div class="col-md-6 col-lg-4 my-4 row align-items-center">
-                  <div class="col-4">
-                      <img class="img-fluid" src="./public/img/guitarra_03.jpg" alt="imagen guitarra"/>
-                  </div>
-                  <div class="col-8">
-                      <h3 class="text-black fs-4 fw-bold text-uppercase">Borland</h3>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit quae labore odit magnam in autem nesciunt, amet deserunt</p>
-                      <p class="fw-black text-primary fs-3">$299</p>
-                      <button 
-                          type="button"
-                          class="btn btn-dark w-100 "
-                      >Agregar al Carrito</button>
-                  </div>
-              </div>
+    setTimeout(() => {
+        setAuth(true)
+    }, 3000);
+    */
 
-              <div class="col-md-6 col-lg-4 my-4 row align-items-center">
-                  <div class="col-4">
-                      <img class="img-fluid" src="./public/img/guitarra_04.jpg" alt="imagen guitarra"/>
-                  </div>
-                  <div class="col-8">
-                      <h3 class="text-black fs-4 fw-bold text-uppercase">Vai</h3>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit quae labore odit magnam in autem nesciunt, amet deserunt</p>
-                      <p class="fw-black text-primary fs-3">$299</p>
-                      <button 
-                          type="button"
-                          class="btn btn-dark w-100 "
-                      >Agregar al Carrito</button>
-                  </div>
-              </div>
+    const initialCart = () => {
+        const localStorageCart = localStorage.getItem("cart");
+        return localStorageCart ? JSON.parse(localStorageCart) : [];
+    }
 
-              <div class="col-md-6 col-lg-4 my-4 row align-items-center">
-                  <div class="col-4">
-                      <img class="img-fluid" src="./public/img/guitarra_05.jpg" alt="imagen guitarra"/>
-                  </div>
-                  <div class="col-8">
-                      <h3 class="text-black fs-4 fw-bold text-uppercase">Thompson</h3>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit quae labore odit magnam in autem nesciunt, amet deserunt</p>
-                      <p class="fw-black text-primary fs-3">$299</p>
-                      <button 
-                          type="button"
-                          class="btn btn-dark w-100 "
-                      >Agregar al Carrito</button>
-                  </div>
-              </div>
+    const [data, setData] = useState(db);
+    const [cart, setCart] = useState(initialCart);
 
-              <div class="col-md-6 col-lg-4 my-4 row align-items-center">
-                  <div class="col-4">
-                      <img class="img-fluid" src="./public/img/guitarra_06.jpg" alt="imagen guitarra"/>
-                  </div>
-                  <div class="col-8">
-                      <h3 class="text-black fs-4 fw-bold text-uppercase">White</h3>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit quae labore odit magnam in autem nesciunt, amet deserunt</p>
-                      <p class="fw-black text-primary fs-3">$299</p>
-                      <button 
-                          type="button"
-                          class="btn btn-dark w-100 "
-                      >Agregar al Carrito</button>
-                  </div>
-              </div>
+    const max_items = 5;
+    const min_items = 1;
 
-              <div class="col-md-6 col-lg-4 my-4 row align-items-center">
-                  <div class="col-4">
-                      <img class="img-fluid" src="./public/img/guitarra_07.jpg" alt="imagen guitarra"/>
-                  </div>
-                  <div class="col-8">
-                      <h3 class="text-black fs-4 fw-bold text-uppercase">Cobain</h3>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit quae labore odit magnam in autem nesciunt, amet deserunt</p>
-                      <p class="fw-black text-primary fs-3">$299</p>
-                      <button 
-                          type="button"
-                          class="btn btn-dark w-100 "
-                      >Agregar al Carrito</button>
-                  </div>
-              </div>
-              <div class="col-md-6 col-lg-4 my-4 row align-items-center">
-                  <div class="col-4">
-                      <img class="img-fluid" src="./public/img/guitarra_08.jpg" alt="imagen guitarra"/>
-                  </div>
-                  <div class="col-8">
-                      <h3 class="text-black fs-4 fw-bold text-uppercase">Dale</h3>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit quae labore odit magnam in autem nesciunt, amet deserunt</p>
-                      <p class="fw-black text-primary fs-3">$299</p>
-                      <button 
-                          type="button"
-                          class="btn btn-dark w-100 "
-                      >Agregar al Carrito</button>
-                  </div>
-              </div>
-              <div class="col-md-6 col-lg-4 my-4 row align-items-center">
-                  <div class="col-4">
-                      <img class="img-fluid" src="./public/img/guitarra_09.jpg" alt="imagen guitarra"/>
-                  </div>
-                  <div class="col-8">
-                      <h3 class="text-black fs-4 fw-bold text-uppercase">Krieger</h3>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit quae labore odit magnam in autem nesciunt, amet deserunt</p>
-                      <p class="fw-black text-primary fs-3">$299</p>
-                      <button 
-                          type="button"
-                          class="btn btn-dark w-100 "
-                      >Agregar al Carrito</button>
-                  </div>
-              </div>
-              <div class="col-md-6 col-lg-4 my-4 row align-items-center">
-                  <div class="col-4">
-                      <img class="img-fluid" src="./public/img/guitarra_10.jpg" alt="imagen guitarra"/>
-                  </div>
-                  <div class="col-8">
-                      <h3 class="text-black fs-4 fw-bold text-uppercase">Campbell</h3>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit quae labore odit magnam in autem nesciunt, amet deserunt</p>
-                      <p class="fw-black text-primary fs-3">$299</p>
-                      <button 
-                          type="button"
-                          class="btn btn-dark w-100 "
-                      >Agregar al Carrito</button>
-                  </div>
-              </div>
-              <div class="col-md-6 col-lg-4 my-4 row align-items-center">
-                  <div class="col-4">
-                      <img class="img-fluid" src="./public/img/guitarra_11.jpg" alt="imagen guitarra"/>
-                  </div>
-                  <div class="col-8">
-                      <h3 class="text-black fs-4 fw-bold text-uppercase">Reed</h3>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit quae labore odit magnam in autem nesciunt, amet deserunt</p>
-                      <p class="fw-black text-primary fs-3">$299</p>
-                      <button 
-                          type="button"
-                          class="btn btn-dark w-100 "
-                      >Agregar al Carrito</button>
-                  </div>
-              </div>
-              <div class="col-md-6 col-lg-4 my-4 row align-items-center">
-                  <div class="col-4">
-                      <img class="img-fluid" src="./public/img/guitarra_12.jpg" alt="imagen guitarra"/>
-                  </div>
-                  <div class="col-8">
-                      <h3 class="text-black fs-4 fw-bold text-uppercase">Hazel</h3>
-                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit quae labore odit magnam in autem nesciunt, amet deserunt</p>
-                      <p class="fw-black text-primary fs-3">$299</p>
-                      <button 
-                          type="button"
-                          class="btn btn-dark w-100 "
-                      >Agregar al Carrito</button>
-                  </div>
-              </div>
-          </div>
-      </main>
+    useEffect(() => {
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }, [cart])
+
+    function addToCart(item) {
+
+        const itemExists = cart.findIndex((guitar) => guitar.id === item.id);
+        //console.log(itemExists)
+
+        if(itemExists >= 0) {
+            if(cart[itemExists].quantity >= max_items) {
+                return;
+            }
+            //console.log("El Producto ya existe")
+            //cart[itemExists].quantity++; // This mutates the original array 
+
+            const updatedCart = [...cart];
+            updatedCart[itemExists].quantity++;
+            setCart(updatedCart);
+
+        } else {
+            //console.log("no existe, agregando...")
+            item.quantity = 1; // Add quantity
+            setCart([...cart, item]);
+        }
+
+        
+    }
+
+    function removeFromCart(id) {
+        setCart(prevCart => prevCart.filter(guitar => guitar.id !== id))
+    }
+
+    function increaseQuantity(id) {
+        const updatedCart = cart.map( item => {
+
+            if(item.id === id && item.quantity < max_items) {
+                return {
+                    ...item,
+                    quantity: item.quantity + 1
+                }
+            }
+
+            return item;
+        })
+        setCart(updatedCart);
+    }
+
+    function decreaseQuantity(id) {
+        const updatedCart = cart.map( item => {
+
+            if(item.id === id && item.quantity > min_items) {
+                return {
+                    ...item, 
+                    quantity: item.quantity - 1
+                }
+            }
+
+            return item;
+        })
+        setCart(updatedCart);
+    }
+
+    function clearCart() {
+        setCart([]);
+    }
+
+    //function saveLocalStorage() {
+    //    localStorage.setItem("cart", JSON.stringify(cart));
+    //}
+
+    return (
+            <>
+            <Header 
+                cart = {cart}
+                removeFromCart = {removeFromCart}
+                increaseQuantity={increaseQuantity}
+                decreaseQuantity={decreaseQuantity}
+                clearCart={clearCart}
+            />
+
+            <main className="container-xl mt-5">
+                <h2 className="text-center">Nuestra Colección</h2>
+
+                <div className="row mt-5">
+                    {data.map((guitar) => (
+                            <Guitar 
+                                key = {guitar.id}
+                                guitar = {guitar}
+                                setCart={setCart}
+                                addToCart={addToCart}
+                            />
+                        )
+                    )}
+                </div>
+            </main>
 
 
-      <footer class="bg-dark mt-5 py-5">
-          <div class="container-xl">
-              <p class="text-white text-center fs-4 mt-4 m-md-0">GuitarLA - Todos los derechos Reservados</p>
-          </div>
-      </footer>
-    </>
-  )
+            <footer className="bg-dark mt-5 py-5">
+                <div className="container-xl">
+                    <p className="text-white text-center fs-4 mt-4 m-md-0">GuitarLA - Todos los derechos Reservados {new Date().getFullYear()}</p>
+                </div>
+            </footer>
+            </>
+        )
 }
 
 export default App
